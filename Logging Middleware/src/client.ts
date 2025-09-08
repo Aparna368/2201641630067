@@ -25,7 +25,6 @@ const {
 } = process.env;
 
 async function getAccessToken(): Promise<string> {
-    console.log("API_BASE_URL:", API_BASE_URL);
 
     if (cachedToken && tokenExpiry && Date.now() < tokenExpiry) {
       return cachedToken;
@@ -48,9 +47,10 @@ async function getAccessToken(): Promise<string> {
   
   export async function sendLog(log: {
     stack: string;
-    level: "info" | "warn" | "error" | "debug";
+    level: "info" | "warn" | "error" | "debug" | "fatal";
     package: string;
     message: string;
+    metadata?: any;
   }): Promise<LogResponse> {
     const token = await getAccessToken();
   
